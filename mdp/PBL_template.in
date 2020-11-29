@@ -1,0 +1,151 @@
+# Template Param file for AquaSol
+#
+# Author: Patrice Koehl (in collaboration with Marc Delarue)
+# Date: 7/5/07
+# Version: 1
+#
+# Lines starting with "#", "!" or " " are ignored
+# Each other line is divided into 3 parts:
+#	column 1-20	: keyword (lease keep syntax!)
+#       column 21-	: value for specified keyword
+#	After !    	: comments (ignored)
+#
+#
+# Input / Output files
+# ====================
+#
+File Input Mol     :   test.pqr                   ! Input file for charges, PDB or PQR format
+File Input Format  :   free                       ! Input file for charges:
+                                                  !  pqr: pqr column delimited format
+                                                  !  free: pqr in loose, column delimited format
+                                                  !  pdb (not implemented yet)
+File Output LOG    :   test_pbl.log               ! Output log file
+#
+# Displaying molecule on grid using pymol (not required)
+# ======================================================
+#
+File Pymol Mesh    :                              ! Output file: CGO for pymol to represent
+                                                  ! the mesh; if this line is not
+                                                  ! present, will not generate pymol file
+Show Solvent Box   :      0                      ! Flag for mesh display:
+                                                  !   1: show full solvent mesh
+                                                  !   0: only show molecule mesh
+#
+# Temperature for the run
+# ====================
+#
+Temperature        :    300.00                    ! Temperature for the run
+#
+# Defining grid       
+# ==============
+#
+Npoint             :    257 257 257               ! Number of points in dimension x,y and z
+
+Size               :    1.0 1.0 1.0             ! Grid spacing in dimension x,y and z
+                                                  ! Note: by setting size to 0, the program
+						  ! will auto-adjust grid size
+Shifts             :      0.  0.  0.              ! Shifts between grid center, and molecule
+                                                  ! center (dx,dy,dz), in angstroms
+#
+# Defining Molecule/Solvent interface
+# ==================================
+#
+
+Surface type       :       1                      ! Flag that defines surface type:
+                                                  !   0: Solvent Accessible Surface (SAS)
+                                                  !   1: Molecular Surface (MS)
+Radius Probe       :     1.4                      ! Radius of probe for defining surface
+#
+# Projecting charges on regular grid
+# ==================================
+#
+Charge Distrib.    :      0                       ! Flag for charge distribution:
+                                                  ! 0 : trilinear
+                                                  ! 1 : uniform smoothing in atom sphere
+#
+# Salt and solvent 
+# ===============
+#
+Lattice size       : 2.8                          ! Lattice grid size for solvent
+Solvent            : 3.00 55                      ! Solvent: dipole moment (Debye) and concentration (mol/l)
+Ion                : 1  0.05  1.4                 ! ion in solution (as many lines as needed)
+#                                                  ! (in order): valence, concentration, radius  
+Ion                : -1  0.05  1.4                ! ion in solution:
+                                                  ! (in order): valence, concentration, radius  
+Stern region size  : 2.0
+#
+#
+# Dielectric constants for molecule/solvent
+# ========================================
+#
+Epsilon molecule   :      1.0                     ! Dielectric constant (epsilon) in
+                                                  ! the interior of molecule (s)
+Epsilon solvent    :      1.0                     ! Dielectric constant (epsilon) for
+                                                  ! the solvent
+Epsilon averaging  :      1                       ! Method for computing dielectric on grid:
+                                                  !    0 : set eps = 1 everywhere
+                                                  !    1 : set eps based on molecular surface
+                                                  !    2 : same as 1, but with 9-point harmonic 
+                                                  !        smoothing (Bruccoleri et al, 1993)
+#
+# Defining the elliptic equation:
+# ===============================
+#
+Equation           :      4                       ! Type of elliptic equation:
+                                                  !   0 : linear Poisson
+                                                  !   1 : linearized Poisson Boltzmann
+                                                  !   2 : Non linear Poisson Boltzmann
+                                                  !   3 : Size-modified Poisson Boltzmann
+                                                  !   4 : Non linear Poisson Boltzmann Langevin 
+						  !   5 : YULP equation (PBL with Yukawa potential
+						  !       for solvent interactions)
+
+Boundary Condition :      0                       ! Boundary condition considered:
+                                                  !   0 : zero, 1: dipolar, 2: Coulomb (slow)
+
+#
+# Output files for maps based on electrostatics potential
+# =======================================================
+#
+
+Map format         :       3			  ! Output format for electrostatics maps:
+                                                  !    1	OpenDx format
+                                                  !    2        UHBD format
+                                                  !    3        Xplor/CNS format
+                                                  !    4        EZD format
+						  !    5	Binary
+
+File Output Phi    :                              ! Output file for electrostatics potential
+File Output Edens  :                              ! Output file for electrostatics energy density
+File Output Ion    :                              ! Output file for ion map (mol/l) (number)
+File Output IonC   :                              ! Output file for ion map (e. mol/l) (charge density)
+File Output Dipole :        dip.cns                      ! Output file for water dipole map (water
+						  ! density, i.e. with 1 corresponding to
+						  ! 55.0 mol/l)
+
+#
+# Advanced parameters (you should not have to change them)
+# ========================================================
+#
+PDE Solver         :      4  			  !   0 : Linear Conjugate Gradient
+                                                  !   1 : Inexact Newton
+                                                  !   2 : SOR (direct)
+                                                  !   3 : FAS (multigrid)
+						  !   4 : Self-consistent (for DPBL or YULP only)
+Stencil size       :      7			  !   Stencil size for computing the 
+						  !   Jacobian of the discretized NLPBL
+						  !   equation
+						  !   (only applies if Inexact Newton is used)
+Nlevels (MG)       :      0                       !   Number of levels for multigrid
+					          !   (if set to 0 or -1, AquaSol will
+             					  !   use the maximum possible)
+Discretization     :      2			  !   0 : standard 
+						  !   1 : harmonic
+                                                  !   2 : Galerkin
+Smoothing method   :      1			  !   1 : Gauss Seidel Red-Black
+						  !   2 : Weighted Jacobi
+						  !   3 : SOR
+						  !   4 : Conjugate gradient
+
+Tol (convergence)  :     1.e-6                    ! stopping criteria for residual
+

@@ -1,0 +1,15 @@
+define = -DFLEXIBLE
+integrator = steep
+emtol = 250.0
+nsteps = 5000
+nstenergy = 1
+energygrps = System
+
+nstlist = 1
+ns_type = grid
+coulombtype = PME
+rlist = 1.0
+rcoulomb = 1.0
+rvdw = 1.0
+constraints = none
+pbc = xyz
