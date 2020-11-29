@@ -27,37 +27,34 @@ SpikeMutator runs as a command-line application on linux machines.
 
 		unzip all 3 zip files
 ```bash
-		$ cd extra_tools
-		$ tar -xvf AquaSol_Complexes.tgz
-		$ unzip pdb2pqr-1.7.zip
-		$ unzip SCWRL4.zip
+	$ cd extra_tools
+	$ tar -xvf AquaSol_Complexes.tgz
+	$ unzip pdb2pqr-1.7.zip
+	$ unzip SCWRL4.zip
 ```
 
-	Step 2:
-	
+	Step 2:	
 		Install the AquaSol program that calculates Solvation energy execute the following 2 commands
 ```bash
-		$ cd AquaSol_Complexes
-		$ cd Aqua; sudo make clean
-		$ cd ../src; sudo make clean
-		$ cd ../Aqua; sudo make
-		$ cd ../src; sudo make
+	$ cd AquaSol_Complexes
+	$ cd Aqua; sudo make clean
+	$ cd ../src; sudo make clean
+	$ cd ../Aqua; sudo make
+	$ cd ../src; sudo make
 ```
 
-	Step 3:
-		
+	Step 3:	
 		Install SCWRL4.0 (after obtaining the license from 
 		http://dunbrack.fccc.edu/scwrl4/license/index.html)
 ```bash
-		$ cd SCWRL4.0
-		$ ./install_Scwrl4_Linux
+	$ cd SCWRL4.0
+	$ ./install_Scwrl4_Linux
 ```
-
-		Make sure you manually enter the full path to the SCWRL4.0 directory and update your license information
+		Make sure you manually enter the full path to the SCWRL4.0 directory and update your 
+		license information
 
 	
 	Step 4:
-		
 		Open the SpikeMutator.py file and edit lines 4-8 to update the paths of SCWRL4, 
 		AQUASOL, PDB2PQR, and GROMACS.
 
@@ -71,10 +68,10 @@ SpikeMutator runs as a command-line application on linux machines.
 	USAGE 1: Mutate a single residue
 
 ```bash
-		$ python SpikeMutator.py -p position -m AAmutation
-			-p position: the residue (amino acid) position you want to mutate
-			-m AAmutation: the amino acid mutation you want to replace position p with.
-			   This is a letter. ex. Alanine is A
+	$ python SpikeMutator.py -p position -m AAmutation
+		-p position: the residue (amino acid) position you want to mutate
+		-m AAmutation: the amino acid mutation you want to replace position p with.
+		   This is a letter. ex. Alanine is A
 ```
 		This commands performs a single point mutation on the spike protein trimer structure, generates
 		a pdb file of the mutant trimer, and returns the Coulomb, LJ, and Solvation energies of the 
@@ -84,11 +81,11 @@ SpikeMutator runs as a command-line application on linux machines.
 	USAGE 2: Mutate multiple residues simultaneously
 
 ```bash
-		$ python SpikeMutator.py -p p1,p2,p3,...,pn -m m1,m2,m3,...,mn 
-			-p p1,p2,p3,...,pn: A set of integer positions representing the amino acid 
-			   positions you wish to mutate
-			-m m1,m2,m3,...,mn: A set of amino acid point mutations you wish to replace
-			   p1,p2,p3,...,pn with, respectively. Each mutation should be a letter. ex Alanine is A
+	$ python SpikeMutator.py -p p1,p2,p3,...,pn -m m1,m2,m3,...,mn 
+		-p p1,p2,p3,...,pn: A set of integer positions representing the amino acid 
+		   positions you wish to mutate
+		-m m1,m2,m3,...,mn: A set of amino acid point mutations you wish to replace
+		   p1,p2,p3,...,pn with, respectively. Each mutation should be a letter. ex Alanine is A
 ```
 		This commands performs simultaneous multiple single point mutations on the spike protein 
 		structure, and returns the Coulomb, LJ, and Solvation energies of the mutant spike.  
