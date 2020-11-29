@@ -20,11 +20,12 @@ SpikeMutator runs as a command-line application on linux machines.
 	the prior installation of SCWRL4, AQUASOL, PDB2PQR, GROMACS, gfortran, and Python2.7.
 
 	Step 1: 
-		The first 3 software (SCWRL4, AQUASOL, and PDB2PQR) can be found in the "extra_tools" directory. To use SCWRL4, you must register 
+		The first 3 software (SCWRL4, AQUASOL, and PDB2PQR) can be found in the "extra_tools" directory. 
+		To use SCWRL4, you must register 
 		for a free academic license at:
 		http://dunbrack.fccc.edu/scwrl4/license/index.html
 
-		unzip all 3 zip filest
+		unzip all 3 zip files
 ```bash
 		$ cd extra_tools
 		$ tar -xvf AquaSol_Complexes.tgz
@@ -45,7 +46,8 @@ SpikeMutator runs as a command-line application on linux machines.
 
 	Step 3:
 		
-		Install SCWRL4.0 (after obtaining the license from http://dunbrack.fccc.edu/scwrl4/license/index.html)
+		Install SCWRL4.0 (after obtaining the license from 
+		http://dunbrack.fccc.edu/scwrl4/license/index.html)
 ```bash
 		$ cd SCWRL4.0
 		$ ./install_Scwrl4_Linux
@@ -56,7 +58,8 @@ SpikeMutator runs as a command-line application on linux machines.
 	
 	Step 4:
 		
-		Open the SpikeMutator.py file and edit lines 4-8 to update the paths of SCWRL4, AQUASOL, PDB2PQR, and GROMACS.
+		Open the SpikeMutator.py file and edit lines 4-8 to update the paths of SCWRL4, 
+		AQUASOL, PDB2PQR, and GROMACS.
 
 		If you don't have GROMACS installed, you can download the latest version of GROMACS from: 
 		http://www.gromacs.org/Downloads
@@ -73,8 +76,9 @@ SpikeMutator runs as a command-line application on linux machines.
 			-m AAmutation: the amino acid mutation you want to replace position p with.
 			   This is a letter. ex. Alanine is A
 ```
-		This commands performs a single point mutation on the spike protein trimer structure, generates a pdb file of the mutant trimer, and returns
-		the Coulomb, LJ, and Solvation energies of the mutant spike. 
+		This commands performs a single point mutation on the spike protein trimer structure, generates
+		a pdb file of the mutant trimer, and returns the Coulomb, LJ, and Solvation energies of the 
+		mutant spike. 
 
 
 	USAGE 2: Mutate multiple residues simultaneously
@@ -86,6 +90,6 @@ SpikeMutator runs as a command-line application on linux machines.
 			-m m1,m2,m3,...,mn: A set of amino acid point mutations you wish to replace
 			   p1,p2,p3,...,pn with, respectively. Each mutation should be a letter. ex Alanine is A
 ```
-		This commands performs simultaneous multiple single point mutations on the spike protein structure, and
-		returns the Coulomb, LJ, and Solvation energies of the mutant spike.  
+		This commands performs simultaneous multiple single point mutations on the spike protein 
+		structure, and returns the Coulomb, LJ, and Solvation energies of the mutant spike.  
 
