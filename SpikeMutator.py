@@ -185,9 +185,9 @@ def mutateOpen(params):
 		exit()
 
 	#Perform Mutation on original sequence
-	mutant_seq_A = mutateSequence(model_pos, mutation, sequence_A_open, offset)
-	mutant_seq_B = mutateSequence(model_pos, mutation, sequence_B_open, offset)
-	mutant_seq_C = mutateSequence(model_pos, mutation, sequence_C_open, offset)
+	mutant_seq_A = mutateSequence(model_posA, mutation, sequence_A_open, offset)
+	mutant_seq_B = mutateSequence(model_posB, mutation, sequence_B_open, offset)
+	mutant_seq_C = mutateSequence(model_posC, mutation, sequence_C_open, offset)
 	
 	print(simulateOpen(mutation, mutant_seq_A, mutant_seq_B, mutant_seq_C, position, filename, action))
 
