@@ -12,7 +12,7 @@ from subprocess import call
 import string
 import sys 
 import AquasolCPLX_routine
-import spike_down
+from spike_down import mapRealToModel
 import spike_up
 import time
 import os
