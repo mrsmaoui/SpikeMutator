@@ -22,7 +22,7 @@ def main(argv):
 	for i in range(len(argv)):
 		if( i % 2 == 1):	#check odd values
 			#exit if command doesn't exist
-			if not (argv[i] == '-p' or argv[i] == '-m'):
+			if not (argv[i] == '-p' or argv[i] == '-m' or argv[i] == '-c' or argv[i] == '-a'):
 				print error
 				sys.exit(0)
 
@@ -32,6 +32,8 @@ def main(argv):
 	mutation = ''
 	sequence = ''
 	offset = 0
+	conformation = ''
+	action = 'mutation'
 
 	fasta = open("spike.fasta", "r")
 	sequence = fasta.readline().strip()
@@ -41,6 +43,8 @@ def main(argv):
 			if(argv[i] == '-f'): filename = argv[i+1]
 			elif (argv[i] == '-p'): position = argv[i+1]
 			elif (argv[i] == '-m'): mutation = argv[i+1]
+			elif (argv[i] == '-c'): conformation = argv[i+1]
+			elif (argv[i] == '-a'): action = argv[i+1]
 
 	except Exception:
 		print error
@@ -61,10 +65,21 @@ def main(argv):
 			print "ERROR: Incorrect mutation choice"
 			sys.exit(0)	
 
+	if "down" not in conformation and "up" not in conformation:
+		print error
+		print "Kindly specify a conformation to use for the spike by using the -c flag: -c down, or -c up"
+		sys.exit(1)
+
+	if "energy" not in action and "mutation" not in action:
+		print error
+		print "You can only use the value 'energy' with the -a flag"
+		sys.exit(1)
+
 	#Determine which USAGE the user intends to perform
 	if( (position != '') and (position != 'all') and ',' not in position and int(position) > 0 and len(mutation) == 1):
-		params = {"USAGE":1, "filename":filename, "position":position, "mutation":mutation, "sequence":sequence, "offset":offset}  
-		return USAGE1(params)
+		params = {"filename":filename, "position":position, "mutation":mutation, 
+			"sequence":sequence, "offset":offset, "conformation":conformation, "action":action}  	
+		return mutate(params)
 
 	else:
 		print error
@@ -105,14 +120,15 @@ def mutateSequence(x, m, sequence, offset):
 	return "".join(originalSeq)	
 	
 
-def USAGE1(params):
+def mutate(params):
 
 	filename = params['filename']
 	mutation = params['mutation']
 	position = int(params['position'])
 	sequence = params['sequence']
 	offset = params['offset']
-
+	action = params['action']
+	conformation = params['conformation']
 
 	# Check if position is available in the 6VXX structure
 	model_pos = mapRealToModel[position]
@@ -124,15 +140,13 @@ def USAGE1(params):
 	mutant_seq = mutateSequence(model_pos, mutation, sequence, offset)
 	
 	print "Position,Mutation,Coul,LJ,Solvation,Sequence"
-	res = simulate(mutation, mutant_seq, position, filename)
+	res = simulate(mutation, mutant_seq, position, filename, action)
 
 	os.chdir(SPIKE_PATH)
-	# output = open(str(position) + '.txt', 'a')
-	# output.write(res+'\n')
-	# output.close()
+	
 
 
-def simulate(mutation, sequence, position, filename):
+def simulate(mutation, sequence, position, filename, action):
 	os.chdir(SPIKE_PATH)	
 	timestr = time.strftime("%Y%m%d-%H%M%S")
 	usage_path = SPIKE_PATH + '/tmp/' + timestr
@@ -154,13 +168,25 @@ def simulate(mutation, sequence, position, filename):
 
 	call("cat %s/scwrl_spike_A_%d-%s.pdb %s/scwrl_spike_B_%d-%s.pdb %s/scwrl_spike_C_%d-%s.pdb > %s/spike_%d-%s.pdb" % (usage_path, position, mutation, usage_path, position, mutation, usage_path, position, mutation, usage_path, position, mutation), shell=True)
 
-	(Coul, LJ, Fw, Fv, Nw) = calculateE(usage_path, "spike_%d-%s" % (position, mutation) )
-	solvation = float(Fw) - float(Fv) - (float(Nw) * -0.0352669760297406)
 
-	#remove directory
-	call('rm -rf %s/tmp/%s' % (SPIKE_PATH, timestr), shell=True)
+	# Copy structure file into runs/ directory
+	call("cp %s/spike_%d-%s.pdb %s/" % (usage_path, position, mutation, (SPIKE_PATH + '/structs/'), position, mutation), shell=True)
 	
-	return str(position) + "," + mutation + "," + str(Coul) + "," + str(LJ) + "," + str(solvation) + "," + sequence
+	resp = ""
+	if action == 'energy':
+		# Calculate Thermodynamics values
+		(Coul, LJ, Fw, Fv, Nw) = calculateE(usage_path, "spike_%d-%s" % (position, mutation) )
+		solvation = float(Fw) - float(Fv) - (float(Nw) * -0.0352669760297406)
+		resp = str(position) + "," + mutation + "," + str(Coul) + "," + str(LJ) + "," + str(solvation) + "," + sequence
+
+		#remove directory
+		call('rm -rf %s/tmp/%s' % (SPIKE_PATH, timestr), shell=True)
+	
+		return resp
+
+	return "Mutated Structure created at %s/spike_%d-%s.pdb" % ( (SPIKE_PATH + '/structs/'), position, mutation)
+
+
 
 
 
