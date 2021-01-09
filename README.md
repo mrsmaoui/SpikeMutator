@@ -7,7 +7,8 @@ mohamed.smaoui@ku.edu.kw
 http://spikemutator.com
 
 SpikeMutator is a program for generating PDB structures of desired mutations in the Spike protein of the SARS-CoV-2 virus.
-The mutations are applied on the 6VXX PDB template and undergo Molecular Dynamics Energy Minimization to relax any steric clashing.
+The mutations are applied on the 6VXX PDB template (closed spike conformation) and 6VYB PDB template (open spike conformation).
+The generated mutant structures undergo Molecular Dynamics Energy Minimization to relax any steric clashing.
 The program utilizes a dipolar-solvent water model to compute the solvation energy of the mutated structure and computes the Lennard-Jones 
 and Coulomb potentials to determine the stability of the generated structures.
 
@@ -63,30 +64,63 @@ SpikeMutator runs as a command-line application on linux machines.
 		
 
 
-## USAGE:
+## CLOSED SPIKE:
 
-	USAGE 1: Mutate a single residue
+	USAGE 1: Generate the PDB structure for 1 mutation on the closed Spike trimer
 
 ```bash
-	$ python SpikeMutator.py -p position -m AAmutation
+	$ python SpikeMutator.py -p position -m AAmutation -c closed
 		-p position: the residue (amino acid) position you want to mutate
 		-m AAmutation: the amino acid mutation you want to replace position p with.
 		   This is a letter. ex. Alanine is A
+		-c conformation: closed will perform the muations on the 6VYB pdb template
 ```
-		This commands performs a single point mutation on the spike protein trimer structure, generates
-		a pdb file of the mutant trimer, and returns the Coulomb, LJ, and Solvation energies of the 
-		mutant spike. 
-
-
-	USAGE 2: Mutate multiple residues simultaneously
+		This commands performs a single point mutation on the closed spike protein trimer structure
+		and generates a pdb file of the mutant trimer. 
+		
+		
+	USAGE 2: Generate the thermodynamic energy values for a closed mutant spike trimer
 
 ```bash
-	$ python SpikeMutator.py -p p1,p2,p3,...,pn -m m1,m2,m3,...,mn 
-		-p p1,p2,p3,...,pn: A set of integer positions representing the amino acid 
-		   positions you wish to mutate
-		-m m1,m2,m3,...,mn: A set of amino acid point mutations you wish to replace
-		   p1,p2,p3,...,pn with, respectively. Each mutation should be a letter. ex Alanine is A
+	$ python SpikeMutator.py -p position -m AAmutation -c closed -a energy
+		-p position: the residue (amino acid) position you want to mutate
+		-m AAmutation: the amino acid mutation you want to replace position p with.
+		   This is a letter. ex. Alanine is A
+		-c conformation: closed will perform the muations on the 6VYB pdb template
+		-a energy: this flag instructs the program to calculate Coulomb, LJ and Solvation energies
 ```
-		This commands performs simultaneous multiple single point mutations on the spike protein 
-		structure, and returns the Coulomb, LJ, and Solvation energies of the mutant spike.  
+		This commands performs a single point mutation on the closed spike protein trimer structure,
+		and returns the Coulomb, LJ, and Solvation energies of the mutant spike. 
 
+
+
+## OPEN SPIKE:
+
+	USAGE 3: Generate the PDB structure for 1 mutation on the open Spike trimer
+
+```bash
+	$ python SpikeMutator.py -p position -m AAmutation -c open
+		-p position: the residue (amino acid) position you want to mutate
+		-m AAmutation: the amino acid mutation you want to replace position p with.
+		   This is a letter. ex. Alanine is A
+		-c conformation: open will perform the muations on the 6VXX pdb template
+```
+		This commands performs a single point mutation on the open spike protein trimer structure
+		and generates a pdb file of the mutant trimer. 
+		
+		
+	USAGE 2: Generate the thermodynamic energy values for a open mutant spike trimer
+
+```bash
+	$ python SpikeMutator.py -p position -m AAmutation -c open -a energy
+		-p position: the residue (amino acid) position you want to mutate
+		-m AAmutation: the amino acid mutation you want to replace position p with.
+		   This is a letter. ex. Alanine is A
+		-c conformation: open will perform the muations on the 6VXX pdb template
+		-a energy: this flag instructs the program to calculate Coulomb, LJ and Solvation energies
+```
+		This commands performs a single point mutation on the open spike protein trimer structure,
+		and returns the Coulomb, LJ, and Solvation energies of the mutant spike. 
+
+
+	
