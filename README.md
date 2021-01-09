@@ -64,7 +64,7 @@ SpikeMutator runs as a command-line application on linux machines.
 
 ## CLOSED SPIKE CONFORMATION:
 
-	*USAGE 1: Generate the PDB structure for 1 mutation on the closed Spike trimer*
+	USAGE 1: Generate the PDB structure for 1 mutation on the closed Spike trimer
 
 		$ python SpikeMutator.py -p position -m AAmutation -c closed
 			-p position: the residue (amino acid) position you want to mutate
@@ -77,7 +77,7 @@ SpikeMutator runs as a command-line application on linux machines.
 		
 		
 		
-	*USAGE 2: Generate the thermodynamic energy values for a closed mutant spike trimer*
+	USAGE 2: Generate the thermodynamic energy values for a closed mutant spike trimer
 
 		$ python SpikeMutator.py -p position -m AAmutation -c closed -a energy
 			-p position: the residue (amino acid) position you want to mutate
@@ -93,7 +93,7 @@ SpikeMutator runs as a command-line application on linux machines.
 
 ## OPEN SPIKE CONFORMATION:
 
-	*USAGE 3: Generate the PDB structure for 1 mutation on the open Spike trimer*
+	USAGE 3: Generate the PDB structure for 1 mutation on the open Spike trimer
 
 		$ python SpikeMutator.py -p position -m AAmutation -c open
 			-p position: the residue (amino acid) position you want to mutate
@@ -105,7 +105,7 @@ SpikeMutator runs as a command-line application on linux machines.
 		and generates a pdb file of the mutant trimer. 
 		
 		
-	*USAGE 4: Generate the thermodynamic energy values for a open mutant spike trimer*
+	USAGE 4: Generate the thermodynamic energy values for a open mutant spike trimer
 
 		$ python SpikeMutator.py -p position -m AAmutation -c open -a energy
 			-p position: the residue (amino acid) position you want to mutate
