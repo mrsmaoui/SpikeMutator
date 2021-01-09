@@ -139,7 +139,7 @@ def mutate(params):
 	#Perform Mutation on original sequence
 	mutant_seq = mutateSequence(model_pos, mutation, sequence, offset)
 	
-	res = simulate(mutation, mutant_seq, position, filename, action)
+	print(simulate(mutation, mutant_seq, position, filename, action))
 
 	os.chdir(SPIKE_PATH)
 	
@@ -185,7 +185,7 @@ def simulate(mutation, sequence, position, filename, action):
 	
 		return resp
 
-	return "Mutated Structure created at %s/spike_%d-%s.pdb" % ( (SPIKE_PATH + '/structs/'), position, mutation)
+	return "Mutated Structure created at %s/spike_%d-%s.pdb" % ( (SPIKE_PATH + '/structs'), position, mutation)
 
 
 
