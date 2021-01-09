@@ -272,7 +272,7 @@ def simulateOpen(mutation, sequence_A, sequence_B, sequence_C, position, filenam
 		# Calculate Thermodynamics values
 		(Coul, LJ, Fw, Fv, Nw) = calculateE(usage_path, "spike_%d-%s" % (position, mutation) )
 		solvation = float(Fw) - float(Fv) - (float(Nw) * -0.0352669760297406)
-		resp = str(position) + "," + mutation + "," + str(Coul) + "," + str(LJ) + "," + str(solvation) + "," + sequence
+		resp = str(position) + "," + mutation + "," + str(Coul) + "," + str(LJ) + "," + str(solvation)
 
 		#remove directory
 		call('rm -rf %s/tmp/%s' % (SPIKE_PATH, timestr), shell=True)
