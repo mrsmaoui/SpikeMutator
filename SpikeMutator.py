@@ -218,7 +218,7 @@ def simulateClosed(mutation, sequence, position, filename, action):
 
 
 	# Copy structure file into runs/ directory
-	call("cp %s/spike_%d-%s.pdb %s/" % (usage_path, position, mutation, (SPIKE_PATH + '/structs/')), shell=True)
+	call("cp %s/spike_%d-%s.pdb %s/" % (usage_path, position, mutation, (SPIKE_PATH + '/structs/spike_closed_%d-%s.pdb'), position, mutation), shell=True)
 	
 	resp = ""
 	if action == 'energy':
@@ -234,7 +234,7 @@ def simulateClosed(mutation, sequence, position, filename, action):
 	
 		return resp
 
-	return "Mutated Structure created at %s/spike_%d-%s.pdb" % ( (SPIKE_PATH + '/structs'), position, mutation)
+	return "Mutated Structure created at %s/spike_closed_%d-%s.pdb" % ( (SPIKE_PATH + '/structs'), position, mutation)
 
 
 def simulateOpen(mutation, sequence_A, sequence_B, sequence_C, position, filename, action):
@@ -263,7 +263,7 @@ def simulateOpen(mutation, sequence_A, sequence_B, sequence_C, position, filenam
 
 
 	# Copy structure file into runs/ directory
-	call("cp %s/spike_%d-%s.pdb %s/" % (usage_path, position, mutation, (SPIKE_PATH + '/structs/')), shell=True)
+	call("cp %s/spike_%d-%s.pdb %s/" % (usage_path, position, mutation, (SPIKE_PATH + '/structs/spike_open_%d-%s.pdb'), position, mutation), shell=True)
 	
 	resp = ""
 	if action == 'energy':
@@ -279,7 +279,7 @@ def simulateOpen(mutation, sequence_A, sequence_B, sequence_C, position, filenam
 	
 		return resp
 
-	return "Mutated Structure created at %s/spike_%d-%s.pdb" % ( (SPIKE_PATH + '/structs'), position, mutation)
+	return "Mutated Structure created at %s/spike_open_%d-%s.pdb" % ( (SPIKE_PATH + '/structs'), position, mutation)
 
 
 main(sys.argv)
