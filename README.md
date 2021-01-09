@@ -1,9 +1,13 @@
-# SpikeMutator
+# SpikeMutator1.5
 
 SpikeMutator: COVID-19 Spike Mutator & Stability Energy Plotter
+
 (c) 2021 Mohamed R. Smaoui, Hamdi Yahyaoui
+
 Dept of Computer Science, College of Sciences, Kuwait University, Kuwait
+
 mohamed.smaoui@ku.edu.kw
+
 http://spikemutator.com
 
 SpikeMutator is a program for generating PDB structures of desired mutations in the Spike protein of the SARS-CoV-2 virus.
