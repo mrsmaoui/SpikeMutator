@@ -263,7 +263,7 @@ def simulateOpen(mutation, sequence_A, sequence_B, sequence_C, position, filenam
 
 
 	# Copy structure file into runs/ directory
-	call("cp %s/spike_%d-%s.pdb %s/spike_open_%d-%s" % (usage_path, position, mutation, (SPIKE_PATH + '/structs/'), position, mutation), shell=True)
+	call("cp %s/spike_%d-%s.pdb %s/spike_open_%d-%s.pdb" % (usage_path, position, mutation, (SPIKE_PATH + '/structs/'), position, mutation), shell=True)
 	
 	resp = ""
 	if action == 'energy':
