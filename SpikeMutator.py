@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 
 ############# MODIFY PROGRAM PATHS ACCORDINGLY #############
-SPIKE_PATH="/home/ubuntu/SpikeMutator1.0"
-SCWRL4_PATH="/home/ubuntu/SpikeMutator1.0/extra_tools/SCWRL4.0"
+SPIKE_PATH="/home/ubuntu/SpikeMutator"
+SCWRL4_PATH="/home/ubuntu/SpikeMutator/extra_tools/SCWRL4.0"
 GROMACE_BIN_PATH="/usr/local/gromacs/bin/gmx"
-PDB2PQR_PATH="/home/ubuntu/SpikeMutator1.0/extra_tools/pdb2pqr-1.7"
-AQUASOL_PATH="/home/ubuntu/SpikeMutator1.0/extra_tools/AquaSol_Complexes/bin"
+PDB2PQR_PATH="/home/ubuntu/SpikeMutator/extra_tools/pdb2pqr-1.7"
+AQUASOL_PATH="/home/ubuntu/SpikeMutator/extra_tools/AquaSol_Complexes/bin"
 ############# YOU DONT NEED TO MODIFY PAST THIS POINT #############
 
 from subprocess import call
@@ -79,7 +79,7 @@ def main(argv):
 	if( (position != '') and (position != 'all') and ',' not in position and int(position) > 0 and len(mutation) == 1):
 		params = {"filename":filename, "position":position, "mutation":mutation, 
 			"sequence":sequence, "offset":offset, "conformation":conformation, "action":action}  	
-		return mutate(params)
+                return mutate(params)
 
 	else:
 		print error
@@ -129,17 +129,16 @@ def mutate(params):
 	offset = params['offset']
 	action = params['action']
 	conformation = params['conformation']
-
-	# Check if position is available in the 6VXX structure
+	
+        # Check if position is available in the 6VXX structure
 	model_pos = mapRealToModel[position]
 	if model_pos == 0:
-		return "The selected position (%d) cannot be tested because it does not exist in the 6VXX protein structure"
+		print("The selected position (%d) cannot be tested because it does not exist in the 6VXX protein structure" % model_pos)
 		exit()
 
 	#Perform Mutation on original sequence
 	mutant_seq = mutateSequence(model_pos, mutation, sequence, offset)
 	
-	print "Position,Mutation,Coul,LJ,Solvation,Sequence"
 	res = simulate(mutation, mutant_seq, position, filename, action)
 
 	os.chdir(SPIKE_PATH)
@@ -170,10 +169,12 @@ def simulate(mutation, sequence, position, filename, action):
 
 
 	# Copy structure file into runs/ directory
-	call("cp %s/spike_%d-%s.pdb %s/" % (usage_path, position, mutation, (SPIKE_PATH + '/structs/'), position, mutation), shell=True)
+	call("cp %s/spike_%d-%s.pdb %s/" % (usage_path, position, mutation, (SPIKE_PATH + '/structs/')), shell=True)
 	
 	resp = ""
 	if action == 'energy':
+                print "Position,Mutation,Coul,LJ,Solvation,Sequence"
+
 		# Calculate Thermodynamics values
 		(Coul, LJ, Fw, Fv, Nw) = calculateE(usage_path, "spike_%d-%s" % (position, mutation) )
 		solvation = float(Fw) - float(Fv) - (float(Nw) * -0.0352669760297406)
