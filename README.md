@@ -1,6 +1,6 @@
-# SpikeMutator1.5
+# SpikeMutator v1.5
 
-SpikeMutator: COVID-19 Spike Mutator & Stability Energy Plotter
+SpikeMutator v1.5: COVID-19 Spike Mutator & Stability Energy Plotter
 
 (c) 2021 Mohamed R. Smaoui, Hamdi Yahyaoui
 
