@@ -18,6 +18,12 @@ and Coulomb potentials to determine the stability of the generated structures.
 
 SpikeMutator runs as a command-line application on linux machines.
 
+## CITATION:
+
+When citing this tool in any scientific publication please refer to it as: 
+
+Smaoui, M.R., Yahyaoui, H. Unraveling the stability landscape of mutations in the SARS-CoV-2 receptor-binding domain. Sci Rep 11, 9166 (2021). https://doi.org/10.1038/s41598-021-88696-5
+
 
 ## INSTALLATION:
 
@@ -120,6 +126,13 @@ SpikeMutator runs as a command-line application on linux machines.
 
 		This commands performs a single point mutation on the open spike protein trimer structure,
 		and returns the Coulomb, LJ, and Solvation energies of the mutant spike. 
+
+
+
+## COMPUTED STRUCTURES
+
+The 3D PDB structures of all single point mutations in the RBD region have been pre-computed and can be found here: 
+https://drive.google.com/drive/folders/1czrFHH-OZ5c8jzz-x2cDgwIeTjeK0Mzd?usp=sharing
 
 
 	
